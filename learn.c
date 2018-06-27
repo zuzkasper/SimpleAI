@@ -6,100 +6,7 @@
 #include <fcntl.h>
 #include <string.h>
 #include "learn.h"
-/*char*createBuffer(char*argv){
-	int fs=open(argv, O_RDONLY);
-	if(fs==-1){
-		printf("error\n");	
-		return NULL;
-	}
-	int i=0;
-	int numBytes=9;
-	int numRead=9;
-	int totalRead=0;
-	char*tempBuffer=(char*)malloc(sizeof(char)*numBytes+1);
-	if(tempBuffer==NULL){
-		printf("error\n");
-		return NULL;
-	}
-	for(i=0; i<numBytes+1; ++i){
-		tempBuffer[i]='\0';
-	}
-	char*buffer=(char*)malloc(sizeof(char)*numBytes+1);
-	if(buffer==NULL){
-		printf("error\n");
-		return NULL;
-	}
-	for(i=0; i<numBytes+1; ++i){
-		buffer[i]='\0';
-	}
-	while(numRead==numBytes){
-		numRead=read(fs, tempBuffer, numBytes);
-		if(numRead==0&&totalRead==0){
-			printf("error\n");
-			return NULL;
-		}
-		else if(numRead==0){
-			break;
-		}
-		totalRead+=numRead;
-		tempBuffer[numBytes]='\0';
-		buffer=(char*)realloc(buffer, sizeof(char)*totalRead);
-		for(i=0; i<numRead; ++i){
-			buffer[totalRead-numRead+i]=tempBuffer[i];
-		}
-	}
-	free(tempBuffer);
-	return buffer;
-}
 
-double **createArray(char*buffer, int numCols, int numRows){
-	int i=0;
-	char*str=(char*)malloc(sizeof(char)*100);
-	if(str==NULL){
-		printf("error\n");
-		return NULL;
-	}
-	for(i=0; i<100; ++i){
-		str[i]='\0';
-	}
-	double temp=0;
-	int j=0;
-	int index=0;
-	i=0;
-	int m=0;;
-	double **arr=(double**)malloc(sizeof(double*)*numRows);
-	for(j=0; j<numRows; ++j){
-		arr[j]=(double*)malloc(sizeof(double)*(numCols));
-		if(arr[j]==NULL){
-			printf("error\n");
-			return NULL;
-		}
-	}
-	j=0;
-	while(j<numRows){
-		if(buffer[i]==','||buffer[i]=='\n'){
-			temp=atof(str);
-			while(index>=0){
-				str[index]='\0';
-				--index;
-			}
-			arr[j][m]=temp;
-			index=0;
-			if(buffer[i]=='\n'){
-				m=-1;
-				++j;
-			}
-			++i;
-			++m;
-		}else{
-			str[index]=buffer[i];
-			++index;
-			++i;
-		}
-	}
-	free(str);
-	return arr;
-}*/
 double**createX(double**array, int k, int numRows){
 	int i=0;
 	int j=0;
@@ -134,70 +41,7 @@ double**createY(double**array, int k, int numRows){
 	}
 	return y;
 }
-/*	
-double **divideRow(double **array, int a, double c, int x, int y){
-	int i=0;
-	int j=0;
-	double **tempArray=(double**)malloc(sizeof(double*)*x);
-	for(i=0; i<x; ++i){
-		tempArray[i]=(double*)malloc(sizeof(double)*y);
-		if(tempArray[i]==NULL){
-			printf("error\n");
-		}
-	}
-	for (i=0; i<x; ++i){
-		for (j=0; j<y; ++j){
-			if(i==a){
-				tempArray[a][j]=array[a][j]/c;
-			}
-			else{
-				tempArray[i][j]=array[i][j];
-			}
-		}
-	}
-	return tempArray;
-}	
-double **subtractRow(double **array, int a, int b, double f, int x, int y){
-	int i=0;
-	int j=0;
-	double **tempArray=(double**)malloc(sizeof(double*)*x);
-	for(i=0; i<x; ++i){
-		tempArray[i]=(double*)malloc(sizeof(double)*y);
-		if(tempArray[i]==NULL){
-			printf("error\n");
-		}
-	}
-	for (i=0; i<x; ++i){
-		for (j=0; j<y; ++j){
-			if(i==a){
-				tempArray[a][j]=array[a][j]-(f*(array[b][j]));
-			}
-			else{
-				tempArray[i][j]=array[i][j];
-			}
-		}
-	}
-	return tempArray;	
-}
-double **transpose(double **array, int cols, int rows){
-	int i=0;
-	int j=0;
-	double **transposed=(double**)malloc(sizeof(double*)*cols);
-	for (i=0; i<cols;++i){
-		transposed[i]=(double*)malloc(sizeof(double)*rows);
-		if(transposed[i]==NULL){
-			printf("error\n");
-			return NULL;
-		}
-	}
-	j=0;
-	for(i=0; i<cols; ++i){
-		for(j=0; j<rows; ++j){
-			transposed[i][j]=array[j][i];
-		}
-	}
-	return transposed;
-}*/
+
 double **invert(double **array, int x){
 	if (array==NULL){
 		printf("error\n");
@@ -292,34 +136,6 @@ double **invert(double **array, int x){
 	free(augMatrix);
 	return newArray;	
 }
-/*
-double **multiply(double **array1, double**array2, int rows1, int cols1, int rows2, int cols2){
-	double**newArray=(double**)malloc(sizeof(double*)*rows1);
-	int i=0;
-	for (i=0; i<rows1;++i){
-		newArray[i]=(double*)malloc(sizeof(double)*cols2);
-		if(newArray[i]==NULL){
-			printf("error\n");
-			return NULL;
-		}
-	}
-	i=0;
-	int j=0;
-	int common=0;
-	double sum=0;
-	double temp=0;
-	for(i=0; i<rows1; ++i){
-		for(j=0; j<cols2; ++j){
-			for(common=0; common<cols1; ++common){
-				temp=array1[i][common]*array2[common][j];
-				sum+=temp;
-			}
-			newArray[i][j]=sum;
-			sum=0;
-		}
-	}
-	return newArray;
-}*/
 
 int main(int argc, char*argv[]){
 	char*trainBuffer=createBuffer(argv[1]);
